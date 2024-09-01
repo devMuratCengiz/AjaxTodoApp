@@ -1,0 +1,40 @@
+﻿@model CreateTodoDto
+@{
+    Layout = null;
+}
+
+<h2>Todo Ekle</h2>
+<form id="todoForm" method="post">
+    <div class="mb-3">
+
+        <input type="text" class="form-control" placeholder="Todo Ekle" id="todoContent">
+    </div>
+    <div class="mb-3 text-lg-end">
+
+        <button type="submit" class="btn btn-primary">>Ekle</button>
+
+
+    </div>
+</form>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+        $('#todoForm').submit(function (event) {
+            event.preventDefault(); 
+
+            var content = $('#todoContent').val();
+
+            $.ajax({
+                url: '@Url.Action("Create","Home")',
+                type: 'post',
+                data: { Content: content },
+                success: function (response) {
+                    loadTodoList();
+                    $("#todoContent").val("");
+                },
+                error: function () {
+                    alert('Bir hata oluştu');
+                }
+            });
+        });
+    
+</script>
